@@ -33,7 +33,8 @@ export class Board {
 
   tick() {
     if (this.droppingBlockPos.y === this.height - 1) this.isFalling = false;
-    if (this.isFalling) {
+    else if (this.board[this.droppingBlockPos.y + 1][this.droppingBlockPos.x] !== ".") this.isFalling = false;
+    else if (this.isFalling) {
       this.board[this.droppingBlockPos.y][this.droppingBlockPos.x] = ".";
       this.droppingBlockPos.y += 1;
       this.board[this.droppingBlockPos.y][this.droppingBlockPos.x] = this.droppingBlockType;
