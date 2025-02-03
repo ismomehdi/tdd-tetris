@@ -9,22 +9,23 @@ export class Board {
   }
 
   toString() {
-    let string = ''
-    const flatBoard = this.board.flat()
+    let string = "";
+    const flatBoard = this.board.flat();
 
     for (let i = 0; i < flatBoard.length; i++) {
-      string += flatBoard[i] === 0 ? '.' : 'X'
-      if ((i + 1) % this.width === 0) string += '\n'
+      string += flatBoard[i] === 0 ? "." : "X";
+      if ((i + 1) % this.width === 0) string += "\n";
     }
-    return string
+    return string;
   }
 
   drop(string) {
-    this.board[0][Math.round(this.width / 2 - 1)] = string
+    if (["X", "Y"].some((str) => this.board.flat().includes(str))) throw "already falling";
+    this.board[0][Math.round(this.width / 2 - 1)] = string;
   }
 
   tick() {
-    this.board.unshift(Array(this.width).fill(0))
-    this.board.pop()
+    this.board.unshift(Array(this.width).fill(0));
+    this.board.pop();
   }
 }
