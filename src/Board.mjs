@@ -16,4 +16,12 @@ export class Board {
     }
     return string
   }
+
+  drop() {
+    this.board[Math.round(this.width / 2 - 1)] = 'X'
+  }
+
+  tick() {
+
+  }
 }
