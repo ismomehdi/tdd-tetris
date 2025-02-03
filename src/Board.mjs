@@ -24,6 +24,7 @@ export class Board {
   }
 
   tick() {
-
+    this.board.unshift(Array(this.width).fill(0))
+    this.board.pop()
   }
 }
