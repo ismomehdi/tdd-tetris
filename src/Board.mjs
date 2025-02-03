@@ -32,9 +32,12 @@ export class Board {
   }
 
   tick() {
-    this.board[this.droppingBlockPos.y][this.droppingBlockPos.x] = ".";
-    this.droppingBlockPos.y += 1;
-    this.board[this.droppingBlockPos.y][this.droppingBlockPos.x] = this.droppingBlockType;
+    if (this.droppingBlockPos.y === this.height - 1) this.isFalling = false;
+    if (this.isFalling) {
+      this.board[this.droppingBlockPos.y][this.droppingBlockPos.x] = ".";
+      this.droppingBlockPos.y += 1;
+      this.board[this.droppingBlockPos.y][this.droppingBlockPos.x] = this.droppingBlockType;
+    }
   }
 
   hasFalling() {
