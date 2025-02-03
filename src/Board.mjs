@@ -6,6 +6,7 @@ export class Board {
     this.width = width;
     this.height = height;
     this.board = Array.from({ length: height }, () => Array(width).fill(0));
+    this.isFalling = false;
   }
 
   toString() {
@@ -20,12 +21,17 @@ export class Board {
   }
 
   drop(string) {
-    if (["X", "Y"].some((str) => this.board.flat().includes(str))) throw "already falling";
+    if (this.isFalling) throw "already falling";
+    this.isFalling = true;
     this.board[0][Math.round(this.width / 2 - 1)] = string;
   }
 
   tick() {
     this.board.unshift(Array(this.width).fill(0));
     this.board.pop();
+  }
+
+  hasFalling() {
+    return this.isFalling;
   }
 }
