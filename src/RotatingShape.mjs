@@ -1,12 +1,11 @@
 export class RotatingShape {
-  constructor() {
-    this.shape = [];
+  constructor(shape = []) {
+    this.shape = shape;
   }
 
   static fromString(string) {
-    const instance = new RotatingShape();
-    instance.shape = string.split("\n").map((line) => line.trim().split(""));
-    return instance;
+    const shape = string.split("\n").map((line) => line.trim().split(""));
+    return new RotatingShape(shape);
   }
 
   toString() {
@@ -19,12 +18,12 @@ export class RotatingShape {
   }
 
   rotateRight() {
-    this.shape = this.shape[0].map((_, i) => this.shape.map((row) => row[i]).reverse());
-    return this;
+    const shape = this.shape[0].map((_, i) => this.shape.map((row) => row[i]).reverse());
+    return new RotatingShape(shape);
   }
 
   rotateLeft() {
-    this.shape = this.shape[0].map((_, i) => this.shape.map((row) => row[row.length - 1 - i]));
-    return this;
+    const shape = this.shape[0].map((_, i) => this.shape.map((row) => row[row.length - 1 - i]));
+    return new RotatingShape(shape);
   }
 }
