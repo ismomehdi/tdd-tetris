@@ -10,12 +10,12 @@ export class Board {
 
   toString() {
     let string = ''
-    for (let i = 0; i < this.height; i++) {
-      for (let j = 0; j < this.board.length; j++) {
-        this.board[i][j] === 0 ? string += '.' : 'X'
-      }
-      string += '\n'
-    };
+    const flatBoard = this.board.flat()
+
+    for (let i = 0; i < flatBoard.length; i++) {
+      string += flatBoard[i] === 0 ? '.' : 'X'
+      if ((i + 1) % this.width === 0) string += '\n'
+    }
     return string
   }
 }
