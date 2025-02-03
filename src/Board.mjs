@@ -5,20 +5,22 @@ export class Board {
   constructor(width, height) {
     this.width = width;
     this.height = height;
-    this.board = Array(width * height).fill(0)
+    this.board = Array.from({ length: height }, () => Array(width).fill(0));
   }
 
   toString() {
     let string = ''
-    for (let i = 0; i < this.board.length; i++) {
-      string += this.board[i] === 0 ? '.' : 'X'
+    const flatBoard = this.board.flat()
+
+    for (let i = 0; i < flatBoard.length; i++) {
+      string += flatBoard[i] === 0 ? '.' : 'X'
       if ((i + 1) % this.width === 0) string += '\n'
     }
     return string
   }
 
   drop() {
-    this.board[Math.round(this.width / 2 - 1)] = 'X'
+    this.board[0][Math.round(this.width / 2 - 1)] = 'X'
   }
 
   tick() {
