@@ -1,6 +1,8 @@
+import { RotatingShape } from "./RotatingShape.mjs";
+
 export class Tetromino {
   constructor(shape) {
-    this.shape = shape;
+    this.shape = new RotatingShape(shape);
   }
 
   static T_SHAPE = new Tetromino([
@@ -8,8 +10,4 @@ export class Tetromino {
     ["T", "T", "T"],
     [".", ".", "."],
   ]);
-
-  toString() {
-    return this.shape.map((row) => row.join("")).join("\n") + "\n";
-  }
 }
