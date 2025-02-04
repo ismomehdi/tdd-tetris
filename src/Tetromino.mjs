@@ -11,6 +11,14 @@ export class Tetromino {
     [".", ".", "."],
   ]);
 
+  static I_SHAPE = new Tetromino([
+    [".", ".", ".", ".", "."],
+    [".", ".", ".", ".", "."],
+    ["I", "I", "I", "I", "."],
+    [".", ".", ".", ".", "."],
+    [".", ".", ".", ".", "."],
+  ]);
+
   toString() {
     return new RotatingShape(this.shape).toString();
   }
