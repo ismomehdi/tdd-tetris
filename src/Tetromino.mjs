@@ -35,4 +35,9 @@ export class Tetromino {
 export class Tetromino2 {
   #currentOrientation;
   #orientations;
+
+  constructor(currentOrientation, orientations) {
+    this.#currentOrientation = (currentOrientation + orientations.length) % orientations.length;
+    this.#orientations = orientations;
+  }
 }
