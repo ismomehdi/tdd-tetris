@@ -9,12 +9,7 @@ export class RotatingShape {
   }
 
   toString() {
-    let str = "";
-    this.shape.forEach((r) => {
-      str += r.join("").replaceAll(",", "");
-      str += "\n";
-    });
-    return str;
+    return this.shape.map((row) => row.join("")).join("\n") + "\n";
   }
 
   rotateRight() {
