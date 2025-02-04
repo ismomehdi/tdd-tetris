@@ -5,11 +5,11 @@ export class Tetromino {
     this.shape = shape;
   }
 
-  static T_SHAPE = new Tetromino([
-    [".", "T", "."],
-    ["T", "T", "T"],
-    [".", ".", "."],
-  ]);
+  static T_SHAPE = Tetromino.fromString(
+    `.T.
+      TTT
+      ...`
+  );
 
   static I_SHAPE = new Tetromino([
     [".", ".", ".", ".", "."],
@@ -18,6 +18,11 @@ export class Tetromino {
     [".", ".", ".", ".", "."],
     [".", ".", ".", ".", "."],
   ]);
+
+  static fromString(initialShape) {
+    const shape = RotatingShape.fromString(initialShape);
+    return shape;
+  }
 
   toString() {
     return new RotatingShape(this.shape).toString();
