@@ -41,6 +41,14 @@ export class Tetromino2 {
     this.#orientations = orientations;
   }
 
+  static T_SHAPE = Tetromino2.fromString(
+    0,
+    4,
+    `.T.
+     TTT
+     ...`
+  );
+
   static fromString(currentOrientation, orientationCount, initialShape) {
     const shape = RotatingShape.fromString(initialShape);
     const orientations = [shape, shape.rotateRight(), shape.rotateRight().rotateRight(), shape.rotateLeft()].slice(
