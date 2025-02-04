@@ -11,13 +11,13 @@ export class Tetromino {
       ...`
   );
 
-  static I_SHAPE = new Tetromino([
-    [".", ".", ".", ".", "."],
-    [".", ".", ".", ".", "."],
-    ["I", "I", "I", "I", "."],
-    [".", ".", ".", ".", "."],
-    [".", ".", ".", ".", "."],
-  ]);
+  static I_SHAPE = Tetromino.fromString(
+    `.....
+      .....
+      IIII.
+      .....
+      .....`
+  );
 
   static fromString(initialShape) {
     const shape = RotatingShape.fromString(initialShape);
