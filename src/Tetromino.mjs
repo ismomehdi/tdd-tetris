@@ -10,4 +10,8 @@ export class Tetromino {
     ["T", "T", "T"],
     [".", ".", "."],
   ]);
+
+  toString() {
+    return this.shape.toString();
+  }
 }
