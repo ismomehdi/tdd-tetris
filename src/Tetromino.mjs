@@ -57,4 +57,12 @@ export class Tetromino2 {
     );
     return new Tetromino(currentOrientation, orientations);
   }
+
+  #shape() {
+    return this.#orientations[this.#currentOrientation];
+  }
+
+  toString() {
+    return new RotatingShape(this.#shape).toString();
+  }
 }
