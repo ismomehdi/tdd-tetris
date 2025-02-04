@@ -40,4 +40,13 @@ export class Tetromino2 {
     this.#currentOrientation = (currentOrientation + orientations.length) % orientations.length;
     this.#orientations = orientations;
   }
+
+  static fromString(currentOrientation, orientationCount, initialShape) {
+    const shape = RotatingShape.fromString(initialShape);
+    const orientations = [shape, shape.rotateRight(), shape.rotateRight().rotateRight(), shape.rotateLeft()].slice(
+      0,
+      orientationCount
+    );
+    return new Tetromino(currentOrientation, orientations);
+  }
 }
