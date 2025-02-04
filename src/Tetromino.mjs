@@ -2,7 +2,7 @@ import { RotatingShape } from "./RotatingShape.mjs";
 
 export class Tetromino {
   constructor(shape) {
-    this.shape = new RotatingShape(shape);
+    this.shape = shape;
   }
 
   static T_SHAPE = new Tetromino([
@@ -12,6 +12,10 @@ export class Tetromino {
   ]);
 
   toString() {
-    return this.shape.toString();
+    return new RotatingShape(this.shape).toString();
+  }
+
+  rotateRight() {
+    return new RotatingShape(this.shape).rotateRight();
   }
 }
