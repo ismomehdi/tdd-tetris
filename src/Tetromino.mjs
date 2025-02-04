@@ -31,3 +31,8 @@ export class Tetromino {
     return new RotatingShape(this.shape).rotateLeft();
   }
 }
+
+export class Tetromino2 {
+  #currentOrientation;
+  #orientations;
+}
