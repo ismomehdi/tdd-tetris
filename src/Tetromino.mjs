@@ -26,7 +26,7 @@ export class Tetromino {
   );
 
   static fromString(initialShape, currentOrientation, orientationCount) {
-    return this.#getOrientations(RotatingShape.fromString(initialShape), currentOrientation, orientationCount);
+    return Tetromino.#getOrientations(RotatingShape.fromString(initialShape), currentOrientation, orientationCount);
   }
 
   static #getOrientations(rotatingShape, currentOrientation, orientationCount) {
@@ -48,10 +48,10 @@ export class Tetromino {
   }
 
   rotateRight() {
-    return new RotatingShape(this.#getShape()).rotateRight();
+    return new Tetromino(this.#currentOrientation + 1, this.#orientations);
   }
 
   rotateLeft() {
-    return new RotatingShape(this.#getShape()).rotateLeft();
+    return new Tetromino(this.#currentOrientation - 1, this.#orientations);
   }
 }
