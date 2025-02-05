@@ -7,16 +7,16 @@ export class Tetromino {
 
   static T_SHAPE = Tetromino.fromString(
     `.T.
-      TTT
-      ...`
+     TTT
+     ...`
   );
 
   static I_SHAPE = Tetromino.fromString(
     `.....
-      .....
-      IIII.
-      .....
-      .....`
+     .....
+     IIII.
+     .....
+     .....`
   );
 
   static fromString(initialShape) {
