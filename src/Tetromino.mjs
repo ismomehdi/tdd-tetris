@@ -27,6 +27,14 @@ export class Tetromino {
     2
   );
 
+  static O_SHAPE = Tetromino.fromString(
+    `.OO
+     .OO
+     ...`,
+    0,
+    1
+  );
+
   static fromString(initialShape, currentOrientation, orientationCount) {
     return Tetromino.#getOrientations(RotatingShape.fromString(initialShape), currentOrientation, orientationCount);
   }
