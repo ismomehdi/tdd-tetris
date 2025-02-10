@@ -22,7 +22,9 @@ export class Tetromino {
      .....
      IIII.
      .....
-     .....`
+     .....`,
+    0,
+    2
   );
 
   static fromString(initialShape, currentOrientation, orientationCount) {
