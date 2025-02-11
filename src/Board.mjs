@@ -1,13 +1,13 @@
 export class Board {
   width;
   height;
+  #fallingBlock = null;
 
   constructor(width, height) {
     this.width = width;
     this.height = height;
     this.board = Array.from({ length: height }, () => Array(width).fill("."));
-    this.fallingBlock = null;
-    this.droppingBlockPos = { x: undefined, y: undefined };
+    this.fallingBlockPos = { x: undefined, y: undefined };
   }
 
   toString() {
@@ -24,21 +24,27 @@ export class Board {
   drop(block) {
     if (this.fallingBlock) throw "already falling";
     this.fallingBlock = block;
-    this.droppingBlockPos.y = 0;
-    this.droppingBlockPos.x = Math.round(this.width / 2 - 1);
-    this.board[this.droppingBlockPos.y][this.droppingBlockPos.x] = this.fallingBlock;
+    this.fallingBlockPos.y = 0;
+    this.fallingBlockPos.x = Math.round(this.width / 2 - 1);
+    this.board[this.fallingBlockPos.y][this.fallingBlockPos.x] = this.fallingBlock.cellAt(
+      this.fallingBlockPos.y,
+      this.fallingBlockPos.x
+    );
   }
 
   tick() {
     if (
-      this.droppingBlockPos.y === this.height - 1 ||
-      this.board[this.droppingBlockPos.y + 1][this.droppingBlockPos.x] !== "."
+      this.fallingBlockPos.y === this.height - 1 ||
+      this.board[this.fallingBlockPos.y + 1][this.fallingBlockPos.x] !== "."
     )
       this.stopFalling();
     else if (this.fallingBlock) {
-      this.board[this.droppingBlockPos.y][this.droppingBlockPos.x] = ".";
-      this.droppingBlockPos.y += 1;
-      this.board[this.droppingBlockPos.y][this.droppingBlockPos.x] = this.fallingBlock;
+      this.board[this.fallingBlockPos.y][this.fallingBlockPos.x] = ".";
+      this.fallingBlockPos.y += 1;
+      this.board[this.fallingBlockPos.y][this.fallingBlockPos.x] = this.fallingBlock.cellAt(
+        this.fallingBlockPos.y,
+        this.fallingBlockPos.x
+      );
     }
   }
 

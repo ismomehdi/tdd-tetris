@@ -5,7 +5,7 @@ export class Block {
     this.#color = color;
   }
 
-  cellAt(x, y) {
+  cellAt(y, x) {
     return this.#color;
   }
 }
