@@ -8,7 +8,6 @@ export class Board {
     this.board = Array.from({ length: height }, () => Array(width).fill("."));
     this.fallingBlock = null;
     this.droppingBlockPos = { x: undefined, y: undefined };
-    this.droppingBlockType = "";
   }
 
   toString() {
@@ -24,11 +23,10 @@ export class Board {
 
   drop(block) {
     if (this.fallingBlock) throw "already falling";
-    this.droppingBlockType = block;
     this.fallingBlock = block;
     this.droppingBlockPos.y = 0;
     this.droppingBlockPos.x = Math.round(this.width / 2 - 1);
-    this.board[this.droppingBlockPos.y][this.droppingBlockPos.x] = this.droppingBlockType;
+    this.board[this.droppingBlockPos.y][this.droppingBlockPos.x] = this.fallingBlock;
   }
 
   tick() {
