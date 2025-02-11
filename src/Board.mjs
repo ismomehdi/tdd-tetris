@@ -32,13 +32,20 @@ export class Board {
   }
 
   tick() {
-    if (this.droppingBlockPos.y === this.height - 1) this.fallingBlock = null;
-    else if (this.board[this.droppingBlockPos.y + 1][this.droppingBlockPos.x] !== ".") this.fallingBlock = null;
+    if (
+      this.droppingBlockPos.y === this.height - 1 ||
+      this.board[this.droppingBlockPos.y + 1][this.droppingBlockPos.x] !== "."
+    )
+      this.stopFalling();
     else if (this.fallingBlock) {
       this.board[this.droppingBlockPos.y][this.droppingBlockPos.x] = ".";
       this.droppingBlockPos.y += 1;
-      this.board[this.droppingBlockPos.y][this.droppingBlockPos.x] = this.droppingBlockType;
+      this.board[this.droppingBlockPos.y][this.droppingBlockPos.x] = this.fallingBlock;
     }
+  }
+
+  stopFalling() {
+    this.fallingBlock = null;
   }
 
   hasFalling() {
