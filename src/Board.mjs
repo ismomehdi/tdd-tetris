@@ -25,15 +25,15 @@ export class Board {
   drop(block) {
     if (this.fallingBlock) throw "already falling";
     this.droppingBlockType = block;
-    this.fallingBlock = true;
+    this.fallingBlock = block;
     this.droppingBlockPos.y = 0;
     this.droppingBlockPos.x = Math.round(this.width / 2 - 1);
     this.board[this.droppingBlockPos.y][this.droppingBlockPos.x] = this.droppingBlockType;
   }
 
   tick() {
-    if (this.droppingBlockPos.y === this.height - 1) this.fallingBlock = false;
-    else if (this.board[this.droppingBlockPos.y + 1][this.droppingBlockPos.x] !== ".") this.fallingBlock = false;
+    if (this.droppingBlockPos.y === this.height - 1) this.fallingBlock = null;
+    else if (this.board[this.droppingBlockPos.y + 1][this.droppingBlockPos.x] !== ".") this.fallingBlock = null;
     else if (this.fallingBlock) {
       this.board[this.droppingBlockPos.y][this.droppingBlockPos.x] = ".";
       this.droppingBlockPos.y += 1;
@@ -42,6 +42,6 @@ export class Board {
   }
 
   hasFalling() {
-    return this.fallingBlock;
+    return !!this.fallingBlock;
   }
 }
