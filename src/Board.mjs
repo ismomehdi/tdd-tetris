@@ -6,7 +6,7 @@ export class Board {
     this.width = width;
     this.height = height;
     this.board = Array.from({ length: height }, () => Array(width).fill("."));
-    this.isFalling = false;
+    this.fallingBlock = null;
     this.droppingBlockPos = { x: undefined, y: undefined };
     this.droppingBlockType = "";
   }
@@ -22,19 +22,19 @@ export class Board {
     return string;
   }
 
-  drop(string) {
-    if (this.isFalling) throw "already falling";
-    this.droppingBlockType = string;
-    this.isFalling = true;
+  drop(block) {
+    if (this.fallingBlock) throw "already falling";
+    this.droppingBlockType = block;
+    this.fallingBlock = true;
     this.droppingBlockPos.y = 0;
     this.droppingBlockPos.x = Math.round(this.width / 2 - 1);
     this.board[this.droppingBlockPos.y][this.droppingBlockPos.x] = this.droppingBlockType;
   }
 
   tick() {
-    if (this.droppingBlockPos.y === this.height - 1) this.isFalling = false;
-    else if (this.board[this.droppingBlockPos.y + 1][this.droppingBlockPos.x] !== ".") this.isFalling = false;
-    else if (this.isFalling) {
+    if (this.droppingBlockPos.y === this.height - 1) this.fallingBlock = false;
+    else if (this.board[this.droppingBlockPos.y + 1][this.droppingBlockPos.x] !== ".") this.fallingBlock = false;
+    else if (this.fallingBlock) {
       this.board[this.droppingBlockPos.y][this.droppingBlockPos.x] = ".";
       this.droppingBlockPos.y += 1;
       this.board[this.droppingBlockPos.y][this.droppingBlockPos.x] = this.droppingBlockType;
@@ -42,6 +42,6 @@ export class Board {
   }
 
   hasFalling() {
-    return this.isFalling;
+    return this.fallingBlock;
   }
 }
