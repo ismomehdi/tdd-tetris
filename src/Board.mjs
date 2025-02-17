@@ -1,3 +1,5 @@
+const EMPTY = ".";
+
 class MovableShape {
   #shape;
   #row;
@@ -36,7 +38,7 @@ export class Board {
   constructor(width, height) {
     this.width = width;
     this.height = height;
-    this.board = Array.from({ length: height }, () => Array(width).fill("."));
+    this.board = Array.from({ length: height }, () => Array(width).fill(EMPTY));
     this.fallingBlockPos = { x: undefined, y: undefined };
   }
 
@@ -65,11 +67,11 @@ export class Board {
   tick() {
     if (
       this.fallingBlockPos.y === this.height - 1 ||
-      this.board[this.fallingBlockPos.y + 1][this.fallingBlockPos.x] !== "."
+      this.board[this.fallingBlockPos.y + 1][this.fallingBlockPos.x] !== EMPTY
     )
       this.stopFalling();
     else if (this.fallingBlock) {
-      this.board[this.fallingBlockPos.y][this.fallingBlockPos.x] = ".";
+      this.board[this.fallingBlockPos.y][this.fallingBlockPos.x] = EMPTY;
       this.fallingBlockPos.y += 1;
       this.board[this.fallingBlockPos.y][this.fallingBlockPos.x] = this.fallingBlock.cellAt(
         this.fallingBlockPos.y,
