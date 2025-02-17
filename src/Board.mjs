@@ -57,7 +57,7 @@ export class Board {
     if (this.fallingBlock) throw "already falling";
     this.fallingBlock = block;
     this.fallingBlockPos.y = 0;
-    this.fallingBlockPos.x = Math.round(this.width / 2 - 1);
+    this.fallingBlockPos.x = Math.floor((this.width - block.width()) / 2);
     this.board[this.fallingBlockPos.y][this.fallingBlockPos.x] = this.fallingBlock.cellAt(
       this.fallingBlockPos.y,
       this.fallingBlockPos.x
