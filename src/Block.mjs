@@ -12,4 +12,8 @@ export class Block {
   width() {
     return 1;
   }
+
+  height() {
+    return 1;
+  }
 }
