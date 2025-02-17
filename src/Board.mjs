@@ -12,6 +12,19 @@ class MovableShape {
   moveDown() {
     return new MovableShape(this.#shape, this.#row + 1, this.#col);
   }
+
+  cellAt(y, x) {
+    if (
+      y >= this.#row &&
+      y < this.#row + this.#shape.height() &&
+      x >= this.#col &&
+      x < this.#col + this.#shape.width()
+    ) {
+      return this.#shape.blockAt(y - this.#row, x - this.#col);
+    } else {
+      return EMPTY;
+    }
+  }
 }
 
 
