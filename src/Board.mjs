@@ -108,6 +108,10 @@ export class Board {
     }
   }
 
+  moveDown() {
+    this.tick();
+  }
+
   #hitsFloor(falling) {
     for (const block of falling.nonEmptyBlocks()) {
       if (block.row >= this.#height) {

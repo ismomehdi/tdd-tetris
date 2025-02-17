@@ -86,7 +86,7 @@ describe("Falling tetrominoes", () => {
     );
   })
 
-  test.skip('a falling tetromino can be moved down', () => {
+  test('a falling tetromino can be moved down', () => {
     board.drop(Tetromino.T_SHAPE);
     board.moveDown();
 
