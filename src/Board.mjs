@@ -108,7 +108,7 @@ export class Board {
     if (
       this.#fallingBlock && (
         this.#fallingBlock.row() === this.height - 1 ||
-        this.board[this.#fallingBlock.row()][this.#fallingBlock.col()] !== EMPTY
+        this.board[this.#fallingBlock.row()+1][this.#fallingBlock.col()] !== EMPTY
       )
     )
       this.stopFalling();

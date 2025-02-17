@@ -50,9 +50,9 @@ describe("Falling blocks", () => {
 
   describe("When a block reaches the bottom", () => {
     beforeEach(() => {
-      board.drop(new Block("X"));
-      board.tick();
-      board.tick();
+      board.drop2(new Block("X"));
+      board.tick2();
+      board.tick2();
     });
 
     test("it is still moving on the last row", () => {
@@ -65,7 +65,7 @@ describe("Falling blocks", () => {
     });
 
     test("it stops when it hits the bottom", () => {
-      board.tick();
+      board.tick2();
 
       expect(board.toString()).to.equalShape(
         `...
