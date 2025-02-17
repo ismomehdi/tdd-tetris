@@ -8,4 +8,8 @@ export class Block {
   cellAt(y, x) {
     return this.#color;
   }
+
+  width() {
+    return 1;
+  }
 }
