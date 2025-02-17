@@ -90,6 +90,13 @@ export class Board {
     }
   }
 
+  moveLeft() {
+    const attempt = this.#falling.moveLeft();
+    if (!this.#hitsImmobile(attempt)) {
+      this.#falling = attempt;
+    }
+  }
+
   #hitsFloor(falling) {
     for (const block of falling.nonEmptyBlocks()) {
       if (block.row >= this.#height) {
