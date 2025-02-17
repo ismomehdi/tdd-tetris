@@ -1,5 +1,15 @@
 const EMPTY = ".";
 
+class Point {
+  row;
+  col;
+
+  constructor(row, col) {
+    this.row = row;
+    this.col = col;
+  }
+}
+
 class MovableShape {
   #shape;
   #row;
@@ -15,128 +25,124 @@ class MovableShape {
     return new MovableShape(this.#shape, this.#row + 1, this.#col);
   }
 
-  cellAt(y, x) {
+  nonEmptyBlocks() {
+    const points = [];
+    for (let row = this.#row; row < this.#row + this.#shape.height(); row++) {
+      for (let col = this.#col; col < this.#col + this.#shape.width(); col++) {
+        const block = this.cellAt(row, col);
+        if (block !== EMPTY) {
+          points.push(new Point(row, col));
+        }
+      }
+    }
+    return points;
+  }
+
+  cellAt(row, col) {
     if (
-      y >= this.#row &&
-      y < this.#row + this.#shape.height() &&
-      x >= this.#col &&
-      x < this.#col + this.#shape.width()
+      row >= this.#row &&
+      row < this.#row + this.#shape.height() &&
+      col >= this.#col &&
+      col < this.#col + this.#shape.width()
     ) {
-      return this.#shape.cellAt(y - this.#row, x - this.#col);
+      return this.#shape.cellAt(row - this.#row, col - this.#col);
     } else {
       return EMPTY;
     }
   }
-
-  row() {
-    return this.#row;
-  }
-
-  col() {
-    return this.#col;
-  }
 }
 
-
 export class Board {
-  width;
-  height;
-  #fallingBlock = null;
+  #width;
+  #height;
+  #falling = null;
+  #immobile;
 
   constructor(width, height) {
-    this.width = width;
-    this.height = height;
-    this.board = Array.from({ length: height }, () => Array(width).fill(EMPTY));
-    this.fallingBlockPos = { x: undefined, y: undefined };
-  }
-
-  toString() {
-    let string = "";
-    const flatBoard = this.board.flat();
-
-    for (let i = 0; i < flatBoard.length; i++) {
-      string += flatBoard[i];
-      if ((i + 1) % this.width === 0) string += "\n";
+    this.#width = width;
+    this.#height = height;
+    this.#immobile = new Array(height);
+    for (let row = 0; row < height; row++) {
+      this.#immobile[row] = new Array(width).fill(EMPTY);
     }
-    return string;
   }
 
-  toString2() {
-    let s = "";
-    for (let row = 0; row < this.height; row++) {
-      for (let col = 0; col < this.width; col++) {
-        s += this.cellAt(row, col);
-      }
-      s += "\n";
+  drop(piece) {
+    if (this.#falling) {
+      throw new Error("another piece is already falling");
     }
-    return s;  
-  }
-
-  drop(block) {
-    if (this.#fallingBlock) throw "already falling";
-    this.#fallingBlock = block;
-    this.fallingBlockPos.y = 0;
-    this.fallingBlockPos.x = Math.floor((this.width - block.width()) / 2);
-    this.board[this.fallingBlockPos.y][this.fallingBlockPos.x] = this.#fallingBlock.cellAt(
-      this.fallingBlockPos.y,
-      this.fallingBlockPos.x
-    );    
-  }
-
-  drop2(block) {
-    if (this.#fallingBlock) throw "already falling";
-    this.#fallingBlock = new MovableShape(block, 0, Math.floor((this.width - block.width()) / 2));
+    this.#falling = new MovableShape(piece, 0, Math.floor((this.#width - piece.width()) / 2));
   }
 
   tick() {
-    if (
-      this.fallingBlockPos.y === this.height - 1 ||
-      this.board[this.fallingBlockPos.y + 1][this.fallingBlockPos.x] !== EMPTY
-    )
-      this.stopFalling();
-    else if (this.#fallingBlock) {
-      this.board[this.fallingBlockPos.y][this.fallingBlockPos.x] = EMPTY;
-      this.fallingBlockPos.y += 1;
-      this.board[this.fallingBlockPos.y][this.fallingBlockPos.x] = this.#fallingBlock.cellAt(
-        this.fallingBlockPos.y,
-        this.fallingBlockPos.x
-      );
+    if (!this.hasFalling()) {
+      return;
+    }
+    const attempt = this.#falling.moveDown();
+    if (this.#hitsFloor(attempt) || this.#hitsImmobile(attempt)) {
+      this.#stopFalling();
+    } else {
+      this.#falling = attempt;
     }
   }
 
-  tick2() {
-    if (
-      this.#fallingBlock && (
-        this.#fallingBlock.row() === this.height - 1 ||
-        this.board[this.#fallingBlock.row()+1][this.#fallingBlock.col()] !== EMPTY
-      )
-    )
-      this.stopFalling();
-    else if (this.#fallingBlock) {
-      this.board[this.#fallingBlock.row()][this.#fallingBlock.col()] = EMPTY;
-      this.#fallingBlock = this.#fallingBlock.moveDown();
-      this.board[this.#fallingBlock.row()][this.#fallingBlock.col()] = this.#fallingBlock.cellAt(
-        this.#fallingBlock.row(),
-        this.#fallingBlock.col()
-      );
+  #hitsFloor(falling) {
+    for (const block of falling.nonEmptyBlocks()) {
+      if (block.row >= this.#height) {
+        return true;
+      }
     }
+    return false;
   }
 
-  stopFalling() {
-    this.#fallingBlock = null;
+  #hitsImmobile(falling) {
+    for (const block of falling.nonEmptyBlocks()) {
+      if (this.#immobile[block.row][block.col] !== EMPTY) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  #stopFalling() {
+    for (let row = 0; row < this.height(); row++) {
+      for (let col = 0; col < this.width(); col++) {
+        this.#immobile[row][col] = this.cellAt(row, col);
+      }
+    }
+    this.#falling = null;
   }
 
   hasFalling() {
-    return !!this.#fallingBlock;
+    return this.#falling !== null;
   }
 
-  cellAt(y, x) {
-    if (this.#fallingBlock) {
-      const block = this.#fallingBlock.cellAt(y, x);
+  width() {
+    return this.#width;
+  }
+
+  height() {
+    return this.#height;
+  }
+
+  cellAt(row, col) {
+    if (this.#falling) {
+      const block = this.#falling.cellAt(row, col);
       if (block !== EMPTY) {
         return block;
       }
     }
-    return EMPTY;
+    return this.#immobile[row][col];
+  }
+
+  toString() {
+    let s = "";
+    for (let row = 0; row < this.#height; row++) {
+      for (let col = 0; col < this.#width; col++) {
+        s += this.cellAt(row, col);
+      }
+      s += "\n";
+    }
+    return s;
   }
 }
