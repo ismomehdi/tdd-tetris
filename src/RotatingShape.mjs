@@ -27,4 +27,12 @@ export class RotatingShape {
   cellAt(y, x) {
     return this.#shape[y][x];
   }
+
+  width() {
+    return this.#shape[0].length;
+  }
+
+  height() {
+    return this.#shape.length;
+  }
 }

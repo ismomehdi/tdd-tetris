@@ -68,4 +68,12 @@ export class Tetromino {
   cellAt(y, x) {
     return this.#getShape().cellAt(y, x);
   }
+
+  width() {
+    return this.#getShape().width();
+  }
+
+  height() {
+    return this.#getShape().height();
+  }
 }
