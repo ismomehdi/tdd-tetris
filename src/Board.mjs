@@ -84,6 +84,7 @@ export class Board {
   }
 
   drop2(block) {
+    if (this.#fallingBlock) throw "already falling";
     this.#fallingBlock = new MovableShape(block, 0, Math.floor((this.width - block.width()) / 2));
   }
 

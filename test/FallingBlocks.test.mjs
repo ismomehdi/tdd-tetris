@@ -42,7 +42,7 @@ describe("Falling blocks", () => {
 
     test("at most one block may be falling at a time", () => {
       const before = board.toString();
-      expect(() => board.drop(new Block("Y"))).to.throw("already falling");
+      expect(() => board.drop2(new Block("Y"))).to.throw("already falling");
       const after = board.toString();
       expect(after).to.equal(before);
     });
