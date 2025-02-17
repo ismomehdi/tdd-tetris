@@ -21,6 +21,10 @@ class MovableShape {
     this.#col = col;
   }
 
+  rotate() {
+    return new MovableShape(this.#shape.rotateRight(), this.#row, this.#col);
+  }
+
   moveDown() {
     return new MovableShape(this.#shape, this.#row + 1, this.#col);
   }
