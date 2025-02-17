@@ -58,7 +58,7 @@ describe("Falling tetrominoes", () => {
     );
   });
 
-  test('a falling tetromino can be moved left', () => {
+  test("a falling tetromino can be moved left", () => {
     board.drop(Tetromino.T_SHAPE);
     board.moveLeft();
 
@@ -70,9 +70,9 @@ describe("Falling tetrominoes", () => {
        ..........
        ..........`
     );
-  })
+  });
 
-  test('a falling tetromino can be moved right', () => {
+  test("a falling tetromino can be moved right", () => {
     board.drop(Tetromino.T_SHAPE);
     board.moveRight();
 
@@ -84,9 +84,9 @@ describe("Falling tetrominoes", () => {
        ..........
        ..........`
     );
-  })
+  });
 
-  test('a falling tetromino can be moved down', () => {
+  test("a falling tetromino can be moved down", () => {
     board.drop(Tetromino.T_SHAPE);
     board.moveDown();
 
@@ -98,15 +98,15 @@ describe("Falling tetrominoes", () => {
        ..........
        ..........`
     );
-  })
+  });
 
-  test('it cannot be moved left beyond the board', () => {
+  test("it cannot be moved left beyond the board", () => {
     board.drop(Tetromino.T_SHAPE);
     board.moveLeft();
     board.moveLeft();
     board.moveLeft();
     board.moveLeft();
-    
+
     expect(board.toString()).to.equalShape(
       `.T........
        TTT.......
@@ -115,16 +115,16 @@ describe("Falling tetrominoes", () => {
        ..........
        ..........`
     );
-  })
+  });
 
-  test('it cannot be moved right beyond the board', () => {
+  test("it cannot be moved right beyond the board", () => {
     board.drop(Tetromino.T_SHAPE);
     board.moveRight();
     board.moveRight();
     board.moveRight();
     board.moveRight();
     board.moveRight();
-    
+
     expect(board.toString()).to.equalShape(
       `........T.
        .......TTT
@@ -133,9 +133,9 @@ describe("Falling tetrominoes", () => {
        ..........
        ..........`
     );
-  })
+  });
 
-  test('it cannot be moved down beyond the board (will stop falling)', () => {
+  test("it cannot be moved down beyond the board (will stop falling)", () => {
     board.drop(Tetromino.T_SHAPE);
     board.moveDown();
     board.moveDown();
@@ -151,9 +151,9 @@ describe("Falling tetrominoes", () => {
        ....T.....
        ...TTT....`
     );
-  })
+  });
 
-  test('it cannot be moved left through other blocks', () => {
+  test("it cannot be moved left through other blocks", () => {
     board.drop(Tetromino.T_SHAPE);
     board.moveLeft();
     board.moveLeft();
@@ -178,9 +178,9 @@ describe("Falling tetrominoes", () => {
        .T..T.....
        TTTTTT....`
     );
-  })
+  });
 
-  test('it cannot be moved right through other blocks', () => {
+  test("it cannot be moved right through other blocks", () => {
     board.drop(Tetromino.T_SHAPE);
     board.moveRight();
     board.moveRight();
@@ -207,9 +207,9 @@ describe("Falling tetrominoes", () => {
        .....T..T.
        ....TTTTTT`
     );
-  })
+  });
 
-  test('it cannot be moved down through other blocks (will stop falling)', () => {
+  test("it cannot be moved down through other blocks (will stop falling)", () => {
     board.drop(Tetromino.T_SHAPE);
     board.tick();
     board.tick();
@@ -231,9 +231,9 @@ describe("Falling tetrominoes", () => {
        ....T.....
        ...TTT....`
     );
-  })
+  });
 
-  test('a falling tetromino can be rotated right', () => {
+  test("a falling tetromino can be rotated right", () => {
     board.drop(Tetromino.T_SHAPE);
     board.rotate();
 
@@ -245,9 +245,9 @@ describe("Falling tetrominoes", () => {
        ..........
        ..........`
     );
-  })
+  });
 
-  test('a falling tetromino can be rotated down', () => {
+  test("a falling tetromino can be rotated down", () => {
     board.drop(Tetromino.T_SHAPE);
     board.rotate();
     board.rotate();
@@ -260,9 +260,9 @@ describe("Falling tetrominoes", () => {
        ..........
        ..........`
     );
-  })
+  });
 
-  test('a falling tetromino can be rotated left', () => {
+  test("a falling tetromino can be rotated left", () => {
     board.drop(Tetromino.T_SHAPE);
     board.rotate();
     board.rotate();
@@ -276,5 +276,26 @@ describe("Falling tetrominoes", () => {
        ..........
        ..........`
     );
-  })
+  });
+
+  test("when rotating a falling tetromino moves away from wall if there is no room to rotate otherwise", () => {
+    board.drop(Tetromino.T_SHAPE);
+    board.rotate();
+    board.rotate();
+    board.rotate();
+    board.moveRight();
+    board.moveRight();
+    board.moveRight();
+    board.moveRight();
+    board.rotate();
+
+    expect(board.toString()).to.equalShape(
+      `........T.
+       .......TTT
+       ..........
+       ..........
+       ..........
+       ..........`
+    );
+  });
 });
