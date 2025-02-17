@@ -33,7 +33,7 @@ describe("Falling blocks", () => {
     test("it moves down one row per tick", () => {
       board.tick2();
 
-      expect(board.toString()).to.equalShape(
+      expect(board.toString2()).to.equalShape(
         `...
          .X.
          ...`
@@ -41,9 +41,9 @@ describe("Falling blocks", () => {
     });
 
     test("at most one block may be falling at a time", () => {
-      const before = board.toString();
+      const before = board.toString2();
       expect(() => board.drop2(new Block("Y"))).to.throw("already falling");
-      const after = board.toString();
+      const after = board.toString2();
       expect(after).to.equal(before);
     });
   });
@@ -56,7 +56,7 @@ describe("Falling blocks", () => {
     });
 
     test("it is still moving on the last row", () => {
-      expect(board.toString()).to.equalShape(
+      expect(board.toString2()).to.equalShape(
         `...
          ...
          .X.`
@@ -78,12 +78,12 @@ describe("Falling blocks", () => {
 
   describe("When a block lands on another block", () => {
     beforeEach(() => {
-      board.drop(new Block("X"));
-      board.tick();
-      board.tick();
-      board.tick();
-      board.drop(new Block("Y"));
-      board.tick();
+      board.drop2(new Block("X"));
+      board.tick2();
+      board.tick2();
+      board.tick2();
+      board.drop2(new Block("Y"));
+      board.tick2();
     });
 
     test("it is still moving on the row above the other block", () => {
@@ -96,7 +96,7 @@ describe("Falling blocks", () => {
     });
 
     test("it stops when it hits the other block", () => {
-      board.tick();
+      board.tick2();
 
       expect(board.toString()).to.equalShape(
         `...
