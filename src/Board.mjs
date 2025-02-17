@@ -8,6 +8,10 @@ class MovableShape {
     this.#row = row;
     this.#col = col;
   }
+
+  moveDown() {
+    return new MovableShape(this.#shape, this.#row + 1, this.#col);
+  }
 }
 
 
