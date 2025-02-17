@@ -22,7 +22,7 @@ class MovableShape {
       x >= this.#col &&
       x < this.#col + this.#shape.width()
     ) {
-      return this.#shape.blockAt(y - this.#row, x - this.#col);
+      return this.#shape.cellAt(y - this.#row, x - this.#col);
     } else {
       return EMPTY;
     }
@@ -53,6 +53,17 @@ export class Board {
     return string;
   }
 
+  toString2() {
+    let s = "";
+    for (let row = 0; row < this.height; row++) {
+      for (let col = 0; col < this.width; col++) {
+        s += this.cellAt(row, col);
+      }
+      s += "\n";
+    }
+    return s;  
+  }
+
   drop(block) {
     if (this.fallingBlock) throw "already falling";
     this.fallingBlock = block;
@@ -61,7 +72,9 @@ export class Board {
     this.board[this.fallingBlockPos.y][this.fallingBlockPos.x] = this.fallingBlock.cellAt(
       this.fallingBlockPos.y,
       this.fallingBlockPos.x
-    );    
+    );
+    
+    // this.fallingBlock = new MovableShape(block, 0, Math.floor((this.width - block.width()) / 2));
   }
 
   tick() {
