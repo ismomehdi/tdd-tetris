@@ -64,4 +64,8 @@ export class Tetromino {
   rotateLeft() {
     return new Tetromino(this.#currentOrientation - 1, this.#orientations);
   }
+
+  cellAt(y, x) {
+    return this.#getShape().cellAt(y, x);
+  }
 }
