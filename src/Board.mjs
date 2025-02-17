@@ -61,7 +61,7 @@ export class Board {
     this.board[this.fallingBlockPos.y][this.fallingBlockPos.x] = this.fallingBlock.cellAt(
       this.fallingBlockPos.y,
       this.fallingBlockPos.x
-    );
+    );    
   }
 
   tick() {
@@ -86,5 +86,15 @@ export class Board {
 
   hasFalling() {
     return !!this.fallingBlock;
+  }
+
+  cellAt(y, x) {
+    if (this.fallingBlock) {
+      const block = this.fallingBlock.cellAt(y, x);
+      if (block !== EMPTY) {
+        return block;
+      }
+    }
+    return EMPTY;
   }
 }
