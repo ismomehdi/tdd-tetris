@@ -172,21 +172,17 @@ describe("Falling tetrominoes", () => {
   });
 
   test("it cannot be moved right through other blocks", () => {
-    board.drop(Tetromino.T_SHAPE);
+    board.drop(Tetromino2.T_SHAPE);
     board.moveRight();
     board.moveRight();
     board.moveRight();
     board.moveRight();
+    fallToBottom(board);
+    board.drop(Tetromino2.T_SHAPE);
     board.tick();
     board.tick();
     board.tick();
-    board.tick();
-    board.tick();
-    board.drop(Tetromino.T_SHAPE);
-    board.tick();
-    board.tick();
-    board.tick();
-    board.tick();
+    board.moveRight();
     board.moveRight();
     board.moveRight();
 
@@ -195,8 +191,8 @@ describe("Falling tetrominoes", () => {
        ..........
        ..........
        ..........
-       .....T..T.
-       ....TTTTTT`
+       ....TTTTTT
+       .....T..T.`
     );
   });
 
