@@ -69,19 +69,26 @@ export class Board {
   #height;
   #falling = null;
   #immobile;
+  #observers;
 
-  constructor(width, height) {
+  constructor(width, height, observers = []) {
     this.#width = width;
     this.#height = height;
     this.#immobile = new Array(height);
+    this.#observers = observers;
     for (let row = 0; row < height; row++) {
       this.#immobile[row] = new Array(width).fill(EMPTY);
     }
   }
 
+  #notifyObservers() {
+    this.#observers.forEach((observer) => observer.score());
+  }
+
   clearFullLines() {
     for (let row = 0; row < this.#height; row++) {
       if (this.#immobile[row].every((cell) => cell !== EMPTY)) {
+        this.#notifyObservers();
         this.#immobile.splice(row, 1);
         this.#immobile.unshift(new Array(this.#width).fill(EMPTY));
       }
