@@ -286,4 +286,34 @@ describe("Falling tetrominoes", () => {
        ..........`
     );
   });
+
+  test("line clears when the row is full", () => {
+    board.drop(Tetromino.I_SHAPE);
+    board.moveLeft();
+    board.moveLeft();
+    board.moveLeft();
+    board.moveLeft();
+    board.moveLeft();
+    fallToBottom(board);
+
+    board.drop(Tetromino.I_SHAPE);
+    board.moveRight();
+    board.moveRight();
+    board.moveRight();
+    board.moveRight();
+    board.moveRight();
+    fallToBottom(board);
+
+    board.drop(Tetromino.O_SHAPE);
+    fallToBottom(board);
+
+    expect(board.toString()).to.equalShape(
+      `..........
+       ..........
+       ..........
+       ..........
+       ..........
+       ....OO....`
+    );
+  });
 });

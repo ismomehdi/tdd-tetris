@@ -79,6 +79,15 @@ export class Board {
     }
   }
 
+  clearFullLines() {
+    for (let row = 0; row < this.#height; row++) {
+      if (this.#immobile[row].every((cell) => cell !== EMPTY)) {
+        this.#immobile.splice(row, 1);
+        this.#immobile.unshift(new Array(this.#width).fill(EMPTY));
+      }
+    }
+  }
+
   drop(piece) {
     if (this.#falling) {
       throw new Error("another piece is already falling");
@@ -93,6 +102,7 @@ export class Board {
     const attempt = this.#falling.moveDown();
     if (this.#hitsFloor(attempt) || this.#hitsImmobile(attempt)) {
       this.#stopFalling();
+      this.clearFullLines();
     } else {
       this.#falling = attempt;
     }
