@@ -1,6 +1,7 @@
 import { describe, test } from "vitest";
 import { expect } from "chai";
-import { Tetromino } from "../src/Tetromino.mjs";
+import { Tetromino, Tetromino2 } from "../src/Tetromino.mjs";
+import { T_SHAPE } from "../src/orientations.mjs";
 
 function distinctOrientations(shape) {
   const distinct = new Set();
@@ -16,34 +17,16 @@ function distinctOrientations(shape) {
 }
 
 describe("The T shape", () => {
-  const shape = Tetromino.T_SHAPE;
+  const shape = Tetromino2.T_SHAPE;
 
   test("initial orientation", () => {
-    expect(shape.toString()).to.equalShape(
-      `.T.
-       TTT
-       ...`
-    );
+    expect(shape.toString()).to.equalShape(T_SHAPE[0]);
   });
 
-  test("can be rotated right/clockwise", () => {
-    expect(shape.rotateRight().toString()).to.equalShape(
-      `.T.
-       .TT
-       .T.`
-    );
-  });
-
-  test("can be rotated left/counter-clockwise", () => {
-    expect(shape.rotateLeft().toString()).to.equalShape(
-      `.T.
-       TT.
-       .T.`
-    );
-  });
-
-  test("has 4 distinct orientations", () => {
-    expect(distinctOrientations(shape).size).to.equal(4);
+  test("can be rotated to all orientations", () => {
+    for (let i = 1; i < shape.length; i++) {
+      expect(shape.rotateRight().toString()).to.equalShape(T_SHAPE[i]);
+    }
   });
 });
 

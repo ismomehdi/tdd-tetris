@@ -31,6 +31,10 @@ export class Tetromino2 {
   rotateRight() {
     return new Tetromino2(this.currentOrientation + 1, this.orientations);
   }
+
+  toString() {
+    return this.orientations[this.currentOrientation].map((row) => row.join("")).join("\n") + "\n";
+  }
 }
 
 export class Tetromino {
