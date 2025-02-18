@@ -3,7 +3,7 @@ import { T_SHAPE, I_SHAPE, O_SHAPE } from "./orientations.mjs";
 
 export class Tetromino2 {
   constructor(currentOrientation, orientations) {
-    this.currentOrientation = currentOrientation;
+    this.currentOrientation = (currentOrientation + orientations.length) % orientations.length;
     this.orientations = orientations;
   }
 
@@ -26,6 +26,10 @@ export class Tetromino2 {
 
   cellAt(y, x) {
     return this.orientations[this.currentOrientation][y][x];
+  }
+
+  rotateRight() {
+    return new Tetromino2(this.currentOrientation + 1, this.orientations);
   }
 }
 
