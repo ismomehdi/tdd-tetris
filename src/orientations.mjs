@@ -1,6 +1,6 @@
 // orientations following the Arika Rotation System
 
-const T_SHAPE = [
+export const T_SHAPE = [
   `....
    TTT.
    .T..
@@ -19,14 +19,14 @@ const T_SHAPE = [
    ....`,
 ];
 
-const O_SHAPE = [
+export const O_SHAPE = [
   `....
    .OO.
    .OO.
    ....`,
 ];
 
-const I_SHAPE = [
+export const I_SHAPE = [
   `....
    IIII
    ....
