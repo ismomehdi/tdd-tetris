@@ -97,7 +97,7 @@ export class Board {
       this.#falling = attempt;
     }
   }
-  
+
   rotate() {
     const attempt = this.#falling.rotate();
     if (!this.#hitsImmobile(attempt)) {
@@ -106,6 +106,9 @@ export class Board {
   }
 
   moveLeft() {
+    if (!this.#falling) {
+      return;
+    }
     const attempt = this.#falling.moveLeft();
     if (!this.#hitsImmobile(attempt)) {
       this.#falling = attempt;
@@ -113,6 +116,9 @@ export class Board {
   }
 
   moveRight() {
+    if (!this.#falling) {
+      return;
+    }
     const attempt = this.#falling.moveRight();
     if (!this.#hitsImmobile(attempt)) {
       this.#falling = attempt;
