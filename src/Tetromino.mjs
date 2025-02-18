@@ -1,5 +1,12 @@
 import { RotatingShape } from "./RotatingShape.mjs";
 
+export class Tetromino2 {
+  constructor(currentOrientation, orientations) {
+    this.currentOrientation = currentOrientation;
+    this.orientations = orientations;
+  }
+}
+
 export class Tetromino {
   #currentOrientation;
   #orientations;
