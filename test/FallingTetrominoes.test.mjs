@@ -266,20 +266,21 @@ describe("Falling tetrominoes", () => {
   });
 
   test("when rotating a falling tetromino moves away from wall if there is no room to rotate otherwise", () => {
-    board.drop(Tetromino.T_SHAPE);
+    board.drop(Tetromino2.T_SHAPE);
     board.rotate();
     board.rotate();
     board.rotate();
-    board.moveRight();
-    board.moveRight();
-    board.moveRight();
-    board.moveRight();
+    board.moveLeft();
+    board.moveLeft();
+    board.moveLeft();
+    board.moveLeft();
+    board.moveLeft();
     board.rotate();
 
     expect(board.toString()).to.equalShape(
-      `........T.
-       .......TTT
-       ..........
+      `..........
+       TTT.......
+       .T........
        ..........
        ..........
        ..........`

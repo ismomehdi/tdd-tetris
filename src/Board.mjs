@@ -102,6 +102,16 @@ export class Board {
     const attempt = this.#falling.rotate();
     if (!this.#hitsImmobile(attempt)) {
       this.#falling = attempt;
+    } else {
+      const left = this.#falling.moveLeft().rotate();
+      if (!this.#hitsImmobile(left)) {
+        this.#falling = left;
+      } else {
+        const right = this.#falling.moveRight().rotate();
+        if (!this.#hitsImmobile(right)) {
+          this.#falling = right;
+        }
+      }
     }
   }
 
