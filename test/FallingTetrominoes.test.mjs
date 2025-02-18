@@ -136,7 +136,7 @@ describe("Falling tetrominoes", () => {
   });
 
   test("it cannot be moved down beyond the board (will stop falling)", () => {
-    board.drop(Tetromino.T_SHAPE);
+    board.drop(Tetromino2.T_SHAPE);
     board.moveDown();
     board.moveDown();
     board.moveDown();
@@ -148,8 +148,8 @@ describe("Falling tetrominoes", () => {
        ..........
        ..........
        ..........
-       ....T.....
-       ...TTT....`
+       ...TTT....
+       ....T.....`
     );
   });
 
