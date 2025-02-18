@@ -3,19 +3,6 @@ import { expect } from "chai";
 import { Tetromino } from "../src/Tetromino.mjs";
 import { I_SHAPE, T_SHAPE, O_SHAPE } from "../src/orientations.mjs";
 
-function distinctOrientations(shape) {
-  const distinct = new Set();
-  let goingRight = shape;
-  let goingLeft = shape;
-  for (let i = 0; i < 10; i++) {
-    distinct.add(goingRight.toString());
-    goingRight = goingRight.rotateRight();
-    distinct.add(goingLeft.toString());
-    goingLeft = goingLeft.rotateLeft();
-  }
-  return distinct;
-}
-
 describe("The T shape", () => {
   const shape = Tetromino.T_SHAPE;
 

@@ -1,4 +1,3 @@
-import { RotatingShape } from "./RotatingShape.mjs";
 import { T_SHAPE, I_SHAPE, O_SHAPE } from "./orientations.mjs";
 
 export class Tetromino {
