@@ -7,9 +7,26 @@ export class Tetromino2 {
     this.orientations = orientations;
   }
 
-  static T_SHAPE = T_SHAPE;
-  static I_SHAPE = I_SHAPE;
-  static O_SHAPE = O_SHAPE;
+  static T_SHAPE = Tetromino2.fromString(T_SHAPE);
+  static I_SHAPE = Tetromino2.fromString(I_SHAPE);
+  static O_SHAPE = Tetromino2.fromString(O_SHAPE);
+
+  static fromString(orientations) {
+    const array = orientations.map((string) => string.split("\n").map((line) => line.trim().split("")));
+    return new Tetromino2(0, array);
+  }
+
+  width() {
+    return this.orientations[0].length;
+  }
+
+  height() {
+    return this.orientations[0].length;
+  }
+
+  cellAt(y, x) {
+    return this.orientations[this.currentOrientation][y][x];
+  }
 }
 
 export class Tetromino {
